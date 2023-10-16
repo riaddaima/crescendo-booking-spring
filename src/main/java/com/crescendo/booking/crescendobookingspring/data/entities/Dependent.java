@@ -23,5 +23,5 @@ public class Dependent extends BaseEntity {
     protected Date dob;
 
     @NotNull
-    protected Gender gender;
+    protected String gender;
 }

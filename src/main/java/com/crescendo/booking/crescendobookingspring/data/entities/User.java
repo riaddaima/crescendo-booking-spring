@@ -21,7 +21,7 @@ public class User extends BaseEntity {
     protected String password;
 
     @NotNull
-    protected Role role;
+    protected String role;
 
     @OneToMany
     protected List<Dependent> dependents;
@@ -37,6 +37,6 @@ public class User extends BaseEntity {
     public User(String email, String password, Role role) {
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
-        this.role = role;
+        this.role = role.getValue();
     }
 }

@@ -31,7 +31,7 @@ public class UserRestController {
 
     @PostMapping
     public boolean createUser(@RequestBody User dto) {
-        if (validateFields(dto))
+        if (!validateFields(dto))
             return false;
         userService.createCustomer(dto.getEmail(), dto.getPassword());
         return true;
