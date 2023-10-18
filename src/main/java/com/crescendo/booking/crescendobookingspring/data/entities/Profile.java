@@ -3,8 +3,14 @@ package com.crescendo.booking.crescendobookingspring.data.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Profile extends BaseEntity {
 
     @OneToOne

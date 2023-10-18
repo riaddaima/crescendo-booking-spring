@@ -5,4 +5,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface UserRepository extends BaseRepository<User> {
+    User findByEmail(String email);
 }

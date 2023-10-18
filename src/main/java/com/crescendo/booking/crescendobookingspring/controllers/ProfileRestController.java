@@ -1,0 +1,34 @@
+package com.crescendo.booking.crescendobookingspring.controllers;
+
+import com.crescendo.booking.crescendobookingspring.data.dtos.Profile;
+import com.crescendo.booking.crescendobookingspring.data.entities.User;
+import com.crescendo.booking.crescendobookingspring.data.repositories.UserRepository;
+import com.crescendo.booking.crescendobookingspring.services.ProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/rest/profile")
+public class ProfileRestController {
+    @Autowired
+    ProfileService profileService;
+
+    @PostMapping
+    public boolean createProfile(@RequestBody Profile dto) {
+        if (!validateFields(dto))
+            return false;
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("oui " + email);
+        profileService.createOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.isSubbed());
+        return true;
+    }
+
+    private boolean validateFields(Profile dto) {
+        return (dto.getFirstName() != null && dto.getLastName() != null && dto.getPhoneNumber() != null
+                && (dto.isSubbed() == true || dto.isSubbed() == false));
+    }
+}
