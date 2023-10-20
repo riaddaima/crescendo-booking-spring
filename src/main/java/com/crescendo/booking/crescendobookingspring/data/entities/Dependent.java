@@ -4,10 +4,14 @@ import com.crescendo.booking.crescendobookingspring.enums.Gender;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Dependent extends BaseEntity {
     @ManyToOne
     @NotNull
