@@ -8,11 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("Integration testing for User Rest Controller")
+@Sql(scripts = {"/user.sql"})
 public class UserRestControllerIntegrationTest {
 
     @LocalServerPort
@@ -60,6 +62,24 @@ public class UserRestControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Validate if the provided email already exists.")
+    public void createUserEmailExists() {
+        User user = new User();
+        user.setEmail("r.daima@aui.ma");
+        user.setPassword("password");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<User> request = new HttpEntity<>(user, headers);
+
+        ResponseEntity<Boolean> response = this.restTemplate.postForEntity(baseUrl + port + "/rest/user", request, Boolean.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isFalse();
+    }
+
+    @Test
     @DisplayName("Authenticate a valid user.")
     public void authenticateTest() {
         User user = new User();
@@ -78,7 +98,7 @@ public class UserRestControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Validate if the provided credentials.")
+    @DisplayName("Validate if the provided credentials are wrong.")
     public void authenticateInvalidTest() {
         User user = new User();
         user.setEmail("testuser@test.com");

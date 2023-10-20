@@ -54,8 +54,7 @@ public class ProfileRestControllerIntegrationTest {
         assertThat(response.getBody()).isTrue();
 
         User user = userRepository.findByEmail("r.daima@aui.ma");
-        System.out.println(user.getProfile().getFirstName());
-        // assertThat(user.getProfile().getFirstName()).isEqualTo(profile.getFirstName());
+        assertThat(user.getProfile().getFirstName()).isEqualTo(profile.getFirstName());
     }
 
     @Test

@@ -16,7 +16,8 @@ import lombok.Setter;
 @Getter
 public class Profile extends BaseEntity {
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
+    @JoinColumn(name = "user_id")
     @NotNull
     protected User user;
 

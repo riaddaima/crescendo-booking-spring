@@ -36,8 +36,7 @@ public class UserRestController {
     public boolean createUser(@RequestBody User dto) {
         if (!validateFields(dto))
             return false;
-        userService.createCustomer(dto.getEmail(), dto.getPassword());
-        return true;
+        return userService.createCustomer(dto.getEmail(), dto.getPassword());
     }
 
     private boolean validateFields(User dto) {

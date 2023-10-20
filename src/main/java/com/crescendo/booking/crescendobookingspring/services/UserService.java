@@ -12,7 +12,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void createCustomer(String email, String password) {
+    public boolean createCustomer(String email, String password) {
+        if (userRepository.findByEmail(email) != null)
+            return false;
         userRepository.save(new User(email, password, Role.CUSTOMER));
+        return true;
     }
 }

@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     @OneToMany
     protected List<Dependent> dependents;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected Profile profile;
 
     @OneToMany(fetch = FetchType.LAZY)
