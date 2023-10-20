@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @RestController
 @RequestMapping("/rest/user")
 public class UserRestController {
@@ -38,7 +41,14 @@ public class UserRestController {
     }
 
     private boolean validateFields(User dto) {
-        return (dto.getEmail() != null && dto.getPassword() != null);
+        return (dto.getEmail() != null && isValidEmail(dto.getEmail())
+                && dto.getPassword() != null);
     }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 }

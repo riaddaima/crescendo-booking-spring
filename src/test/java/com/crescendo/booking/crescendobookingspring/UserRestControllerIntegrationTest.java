@@ -45,7 +45,8 @@ public class UserRestControllerIntegrationTest {
     @DisplayName("Validate the fields when creating a new user.")
     public void createUserInvalidFieldsTest() {
         User user = new User();
-        user.setEmail("testuser@test.com");
+        user.setEmail("testuser");
+        user.setPassword("password");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
