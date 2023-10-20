@@ -5,7 +5,9 @@ import com.crescendo.booking.crescendobookingspring.security.jwt.JwtIntercepting
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +25,22 @@ import javax.sql.DataSource;
 public class SecurityConfigurer  {
 
     @Autowired
-    public DataSource dataSource;
+    private Environment env;
+    @Bean
+    public DataSource dataSource() {
+        String driverClassName = env.getProperty("spring.datasource.driverClassname");
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
+
+        if (driverClassName != null && !driverClassName.isEmpty()) {
+            dataSource.setDriverClassName(driverClassName);
+        }
+
+        return dataSource;
+    }
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;

@@ -12,5 +12,5 @@ public class Profile implements Serializable {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private boolean isSubbed;
+    private Boolean isSubbed;
 }

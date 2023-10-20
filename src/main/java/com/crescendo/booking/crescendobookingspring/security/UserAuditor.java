@@ -20,12 +20,10 @@ public class UserAuditor implements AuditorAware<User> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            System.out.println("Null authentication");
-            return null;
+            return Optional.empty();
         }
 
         String email = (String)authentication.getPrincipal();
-        System.out.println("Email: " + email);
         return Optional.ofNullable(userRepository.findByEmail(email));
     }
 }

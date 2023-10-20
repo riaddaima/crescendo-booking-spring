@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import com.crescendo.booking.crescendobookingspring.enums.Role;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name = "\"user\"", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
+@Getter
 public class User extends BaseEntity {
 
     @NotNull

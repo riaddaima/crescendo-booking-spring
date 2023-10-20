@@ -22,13 +22,12 @@ public class ProfileRestController {
         if (!validateFields(dto))
             return false;
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("oui " + email);
-        profileService.createOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.isSubbed());
+        profileService.createOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.getIsSubbed());
         return true;
     }
 
     private boolean validateFields(Profile dto) {
-        return (dto.getFirstName() != null && dto.getLastName() != null && dto.getPhoneNumber() != null
-                && (dto.isSubbed() == true || dto.isSubbed() == false));
+        return (dto.getFirstName() != null && dto.getLastName() != null && dto.getPhoneNumber() != null &&
+                dto.getIsSubbed() != null);
     }
 }

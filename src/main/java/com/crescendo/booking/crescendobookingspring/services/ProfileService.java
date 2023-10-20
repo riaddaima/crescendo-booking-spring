@@ -15,11 +15,9 @@ public class ProfileService {
     @Autowired
     UserRepository userRepository;
 
-    public void createOwnProfile(String email, String firstName, String lastName, String phoneNumber, boolean isSubbed) {
+    public void createOwnProfile(String email, String firstName, String lastName, String phoneNumber, Boolean isSubbed) {
         User user = userRepository.findByEmail(email);
-        System.out.println(user);
         Profile profile = new Profile(user, firstName, lastName, phoneNumber, isSubbed);
-        System.out.println("leprofile " + profile.getUser().getId());
         profileRepository.save(profile);
     }
 }

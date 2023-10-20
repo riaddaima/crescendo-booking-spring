@@ -49,7 +49,6 @@ public class JwtHelper {
 
     public static Authentication parse(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
-        System.out.println(auth);
         if (auth == null || !auth.startsWith("Bearer "))
             return null;
 

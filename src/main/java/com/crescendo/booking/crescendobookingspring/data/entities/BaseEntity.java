@@ -27,11 +27,13 @@ public class BaseEntity {
     @LastModifiedDate
     private long modifiedDate;
 
-    @Column(name="created_by", updatable = false)
+    @JoinColumn(name="created_by", updatable = false)
     @CreatedBy
-    private String createdBy;
+    @OneToOne
+    private User createdBy;
 
-    @Column(name="modified_by")
+    @JoinColumn(name="modified_by")
     @LastModifiedBy
-    private String modifiedBy;
+    @OneToOne
+    private User modifiedBy;
 }

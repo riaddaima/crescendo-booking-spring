@@ -32,6 +32,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'com.h2database', name: 'h2', version: '2.2.224'
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.1.5'
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.2'

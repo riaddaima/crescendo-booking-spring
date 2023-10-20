@@ -1,19 +1,22 @@
 package com.crescendo.booking.crescendobookingspring.data.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Profile extends BaseEntity {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @NotNull
     protected User user;
 
@@ -27,5 +30,5 @@ public class Profile extends BaseEntity {
     protected String phoneNumber;
 
     @NotNull
-    protected boolean isSubbed;
+    protected Boolean isSubbed;
 }
