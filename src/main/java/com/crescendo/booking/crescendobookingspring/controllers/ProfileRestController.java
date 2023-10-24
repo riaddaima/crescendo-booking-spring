@@ -7,10 +7,7 @@ import com.crescendo.booking.crescendobookingspring.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rest/profile")
@@ -24,6 +21,15 @@ public class ProfileRestController {
             return false;
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         profileService.createOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.getIsSubbed());
+        return true;
+    }
+
+    @PatchMapping
+    public boolean updateProfile(@RequestBody Profile dto) {
+        if (!validateFields(dto))
+            return false;
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        profileService.updateOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.getIsSubbed());
         return true;
     }
 

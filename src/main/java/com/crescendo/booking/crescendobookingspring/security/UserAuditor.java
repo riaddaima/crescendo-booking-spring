@@ -17,13 +17,17 @@ public class UserAuditor implements AuditorAware<User> {
     UserRepository userRepository;
     @Override
     public Optional<User> getCurrentAuditor() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.isAuthenticated()) {
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return Optional.empty();
+            }
+            String email = (String)authentication.getPrincipal();
+            return Optional.ofNullable(userRepository.findByEmail(email));
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
             return Optional.empty();
         }
-
-        String email = (String)authentication.getPrincipal();
-        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 }
