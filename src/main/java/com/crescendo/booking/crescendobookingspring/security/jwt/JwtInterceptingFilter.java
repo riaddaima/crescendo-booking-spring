@@ -25,6 +25,7 @@ public class JwtInterceptingFilter extends OncePerRequestFilter {
         Authentication authentication = JwtHelper.parse(request);
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this resource.");
         }
         filterChain.doFilter(request, response);
     }

@@ -50,7 +50,6 @@ public class SecurityConfigurer  {
                 .exceptionHandling((exception) -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers(HttpMethod.POST, "/rest/user").permitAll()
                         .requestMatchers(HttpMethod.POST, "/rest/user/authenticate").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(new JwtInterceptingFilter(), UsernamePasswordAuthenticationFilter.class);
