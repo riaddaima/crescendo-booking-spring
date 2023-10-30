@@ -1,5 +1,6 @@
 package com.crescendo.booking.crescendobookingspring.data.repositories;
 
+import com.crescendo.booking.crescendobookingspring.data.entities.Attend;
 import com.crescendo.booking.crescendobookingspring.data.entities.Booking;
 import org.springframework.data.jpa.repository.Query;
 

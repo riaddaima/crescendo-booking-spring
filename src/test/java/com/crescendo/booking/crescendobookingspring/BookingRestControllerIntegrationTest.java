@@ -1,8 +1,5 @@
 package com.crescendo.booking.crescendobookingspring;
 
-import com.crescendo.booking.crescendobookingspring.data.repositories.BookingRepository;
-import com.crescendo.booking.crescendobookingspring.data.repositories.PlanRepository;
-import com.crescendo.booking.crescendobookingspring.data.repositories.UserRepository;
 import com.crescendo.booking.crescendobookingspring.security.jwt.JwtHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

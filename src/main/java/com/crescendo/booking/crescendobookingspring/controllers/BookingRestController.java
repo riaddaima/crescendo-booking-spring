@@ -16,14 +16,14 @@ public class BookingRestController {
     BookingService bookingService;
 
     @PostMapping
-    public boolean createBooking(@RequestParam String event, @RequestParam String plan) {
+    public boolean createBooking(@RequestParam Long event, @RequestParam Long plan) {
         if (!validateFields(event, plan))
             return false;
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return bookingService.addBooking(email, Long.parseLong(event), Long.parseLong(plan));
+        return bookingService.addBooking(email, event, plan);
     }
 
-    private boolean validateFields(String event, String plan) {
+    private boolean validateFields(Long event, Long plan) {
         return (event != null && plan != null);
     }
 }

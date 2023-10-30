@@ -51,9 +51,9 @@ public class SecurityConfigurer  {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.POST, "/rest/user/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/rest/user").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(new JwtInterceptingFilter(), UsernamePasswordAuthenticationFilter.class);
-//                .addFilterAfter(new OwnResourceFilter(), JwtInterceptingFilter.class);
 
         return http.build();
     }

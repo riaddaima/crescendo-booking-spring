@@ -6,16 +6,32 @@ import jakarta.validation.constraints.NotNull;
 import com.crescendo.booking.crescendobookingspring.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "\"user\"", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 @Getter
-public class User extends BaseEntity {
+public class User {
+
+    @Id
+    @GeneratedValue
+    protected long id;
+
+    @Column(name="created_at", updatable = false)
+    @CreatedDate
+    private long createdDate;
+
+    @Column(name="modified_at")
+    @LastModifiedDate
+    private long modifiedDate;
 
     @NotNull
     @Email

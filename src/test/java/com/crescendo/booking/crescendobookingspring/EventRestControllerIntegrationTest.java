@@ -17,7 +17,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DisplayName("Integration testing for Dependent Rest Controller")
+@DisplayName("Integration testing for Event Rest Controller")
 public class EventRestControllerIntegrationTest {
 
     @LocalServerPort
