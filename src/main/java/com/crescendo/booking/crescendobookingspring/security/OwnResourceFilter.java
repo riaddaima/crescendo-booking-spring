@@ -25,7 +25,6 @@ public class OwnResourceFilter extends OncePerRequestFilter {
             // No need to check if authentication is null, JwtInterceptingFilter already did that.
             String email = (String) authentication.getPrincipal();
             String emailFromBody = request.getParameter("email");
-            System.out.println(emailFromBody + " " + email);
             if (emailFromBody != null && emailFromBody.compareTo(email) != 0) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "You are not allowed to access this resource.");
             }

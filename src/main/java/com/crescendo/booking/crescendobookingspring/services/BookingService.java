@@ -30,12 +30,10 @@ public class BookingService {
 
     public boolean addBooking(String email, long eventId, long planId) {
         User user = userRepository.findByEmail(email);
-        System.out.println("Here");
         Optional<Event> event = eventRepository.findById(eventId);
         Optional<Plan> plan = planRepository.findById(planId);
 
         if (event.isPresent() && plan.isPresent()) {
-            System.out.println("found " + event + " and " + plan);
             boolean isWaitList = bookingRepository.isWaitList(eventId);
             bookingRepository.save(new Booking(user, event.get(), isWaitList, plan.get()));
             return true;
