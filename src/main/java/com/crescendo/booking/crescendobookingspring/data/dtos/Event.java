@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,9 +24,10 @@ public class Event implements Serializable {
     private String description;
     private String thumbnail;
     private String type;
+    private List<String> instructors;
 
     public Event(String name, String startTime, String endTime, String date, int capacity, int minAge, int maxAge,
-                 String venue, String description) {
+                 String venue, String description, List<String> instructors) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -35,6 +37,7 @@ public class Event implements Serializable {
         this.maxAge = maxAge;
         this.venue = venue;
         this.description = description;
+        this.instructors = instructors;
     }
 
 }

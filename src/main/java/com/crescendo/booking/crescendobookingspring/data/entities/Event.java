@@ -1,8 +1,6 @@
 package com.crescendo.booking.crescendobookingspring.data.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +33,10 @@ public class Event extends BaseEntity {
         return endTime.isAfter(startTime);
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @NotNull
+    protected List<User> instructors;
+
     @NotNull
     protected Date date;
 
@@ -61,7 +63,7 @@ public class Event extends BaseEntity {
     protected List<Booking> bookings;
 
     public Event(String name, LocalTime startTime, LocalTime endTime, Date date, int capacity, int minAge, int maxAge,
-                 String venue, String description) {
+                 String venue, String description, List<User> instructors) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -71,5 +73,6 @@ public class Event extends BaseEntity {
         this.maxAge = maxAge;
         this.venue = venue;
         this.description = description;
+        this.instructors = instructors;
     }
 }

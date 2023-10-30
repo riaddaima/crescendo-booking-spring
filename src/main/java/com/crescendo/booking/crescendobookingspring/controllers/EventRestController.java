@@ -27,6 +27,6 @@ public class EventRestController {
         return (dto.getName() != null && dto.getStartTime() != null && dto.getEndTime() != null
         && Long.parseLong(dto.getEndTime()) >= Long.parseLong(dto.getStartTime()) && dto.getDate() != null
                 && dto.getCapacity() > 0 && dto.getMinAge() >= 0 && dto.getMaxAge() >= 0 && dto.getVenue() != null
-                && dto.getDescription() != null);
+                && dto.getDescription() != null && dto.getInstructors() != null && !dto.getInstructors().isEmpty());
     }
 }

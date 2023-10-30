@@ -14,6 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -40,7 +43,7 @@ public class EventRestControllerIntegrationTest {
 
         Event event = new Event("Big Kids", "1698140828", "1698145715", "1698137288",
                 12, 2, 4, "Crescendo Home - 2, Rue Hamza, Haut Agdal, Rabat",
-                "Lorem Ipsum Dolor");
+                "Lorem Ipsum Dolor", new ArrayList<>(List.of("r.daima@aui.ma")));
 
 
         HttpHeaders headers = new HttpHeaders();
@@ -58,6 +61,7 @@ public class EventRestControllerIntegrationTest {
         com.crescendo.booking.crescendobookingspring.data.entities.Event createdEvent =
                 eventRepository.findByName(event.getName());
         assertThat(createdEvent.getName()).isEqualTo(event.getName());
+//        assertThat(createdEvent.getInstructors().get(0).getEmail()).isEqualTo("r.daima@aui.ma");
     }
 
     @Test
@@ -69,7 +73,7 @@ public class EventRestControllerIntegrationTest {
 
         Event event = new Event("Big Kids", "1698145715", "1698140828", "1698137288",
                 12, -1, 4, "Crescendo Home - 2, Rue Hamza, Haut Agdal, Rabat",
-                "Lorem Ipsum Dolor");
+                "Lorem Ipsum Dolor", new ArrayList<>(List.of("r.daima@aui.ma")));
 
 
         HttpHeaders headers = new HttpHeaders();

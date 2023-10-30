@@ -31,7 +31,6 @@ public class JwtHelper {
     public static String generateToken(Authentication authentication) {
 
         User user = (User)authentication.getPrincipal();
-        System.out.println("authorities: " + user.getAuthorities());
         List<String> authorities = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

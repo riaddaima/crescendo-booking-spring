@@ -51,6 +51,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     protected List<Booking> bookings;
 
+    @ManyToMany(mappedBy = "instructors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    protected List<Event> events;
+
     protected User () {}
 
     public User(String email, String password, Role role) {
