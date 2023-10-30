@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 
-public class dateHelper {
+public class DateHelper {
     public static LocalTime convertTimestampToLocalTime(String timestamp) {
         long timestampL = Long.parseLong(timestamp);
         Instant instant = Instant.ofEpochMilli(timestampL);

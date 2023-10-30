@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalTime;
 import java.util.Date;
 
-import static com.crescendo.booking.crescendobookingspring.format.dateHelper.convertTimestampToLocalTime;
+import static com.crescendo.booking.crescendobookingspring.format.DateHelper.convertTimestampToLocalTime;
 
 @RestController
 @RequestMapping("/rest/event")
@@ -27,6 +27,7 @@ public class EventRestController {
         LocalTime startTime = convertTimestampToLocalTime(dto.getStartTime());
         LocalTime endTime = convertTimestampToLocalTime(dto.getEndTime());
         Date date = new Date(Long.parseLong(dto.getDate()));
+        // Maybe refactor not at this level
         com.crescendo.booking.crescendobookingspring.data.entities.Event event
                 = new com.crescendo.booking.crescendobookingspring.data.entities.Event(dto.getName(), startTime,
                 endTime, date, dto.getCapacity(), dto.getMinAge(), dto.getMaxAge(), dto.getVenue(), dto.getDescription());

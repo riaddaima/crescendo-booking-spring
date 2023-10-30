@@ -23,10 +23,10 @@ public class JwtInterceptingFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         Authentication authentication = JwtHelper.parse(request);
-        if (authentication != null) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (authentication == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this resource.");
         }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 }

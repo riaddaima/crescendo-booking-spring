@@ -2,6 +2,9 @@ package com.crescendo.booking.crescendobookingspring.data.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -22,13 +25,17 @@ public class Booking extends BaseEntity {
     @NotNull
     protected boolean isWaitList;
 
-    @NotNull
-    protected float price;
-
     @ManyToOne
     @NotNull
     protected Plan plan;
 
     @OneToMany(fetch = FetchType.LAZY)
     protected List<Attend> attendance;
+
+    public Booking(User user, Event event, boolean isWaitList, Plan plan) {
+        this.user = user;
+        this.event = event;
+        this.isWaitList = isWaitList;
+        this.plan = plan;
+    }
 }

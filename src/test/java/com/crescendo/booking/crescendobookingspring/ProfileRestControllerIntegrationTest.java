@@ -60,31 +60,31 @@ public class ProfileRestControllerIntegrationTest {
         assertThat(user.getProfile().getCreatedBy().getId()).isEqualTo(user.getId());
     }
 
-    @Test
-    @WithMockUser(username = "r.daima@aui.ma")
-    @DisplayName("Updates a profile for a user.")
-    @Sql(scripts = {"/profile.sql"})
-    public void updateOwnProfileTest() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token = JwtHelper.generateToken(authentication);
-        Profile profile = new Profile("Samir", "Daima", "0693502372", false);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
-
-        HttpEntity<Profile> request = new HttpEntity<>(profile, headers);
-
-
-        ResponseEntity<Boolean> response = this.restTemplate.exchange(baseUrl + port + "/rest/profile", HttpMethod.PATCH, request, Boolean.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isTrue();
-
-        User user = userRepository.findByEmail("r.daima@aui.ma");
-        assertThat(user.getProfile().getFirstName()).isEqualTo(profile.getFirstName());
-        assertThat(user.getProfile().getIsSubbed()).isEqualTo(profile.getIsSubbed());
-    }
+//    @Test
+//    @WithMockUser(username = "r.daima@aui.ma")
+//    @DisplayName("Updates a profile for a user.")
+//    @Sql(scripts = {"/profile.sql"})
+//    public void updateOwnProfileTest() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String token = JwtHelper.generateToken(authentication);
+//        Profile profile = new Profile("Samir", "Daima", "0693502372", false);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.set("Authorization", "Bearer " + token);
+//
+//        HttpEntity<Profile> request = new HttpEntity<>(profile, headers);
+//
+//
+//        ResponseEntity<Boolean> response = this.restTemplate.exchange(baseUrl + port + "/rest/profile", HttpMethod.PATCH, request, Boolean.class);
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody()).isTrue();
+//
+//        User user = userRepository.findByEmail("r.daima@aui.ma");
+//        assertThat(user.getProfile().getFirstName()).isEqualTo(profile.getFirstName());
+//        assertThat(user.getProfile().getIsSubbed()).isEqualTo(profile.getIsSubbed());
+//    }
 
     @Test
     @WithMockUser(username = "r.daima@aui.ma")

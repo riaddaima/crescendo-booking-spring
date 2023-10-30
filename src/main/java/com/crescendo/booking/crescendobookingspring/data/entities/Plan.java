@@ -2,7 +2,11 @@ package com.crescendo.booking.crescendobookingspring.data.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Plan extends BaseEntity {
 

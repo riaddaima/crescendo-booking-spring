@@ -53,6 +53,8 @@ public class SecurityConfigurer  {
                         .requestMatchers(HttpMethod.POST, "/rest/user/authenticate").permitAll()
                         .anyRequest().authenticated())
                 .addFilterAfter(new JwtInterceptingFilter(), UsernamePasswordAuthenticationFilter.class);
+//                .addFilterAfter(new OwnResourceFilter(), JwtInterceptingFilter.class);
+
         return http.build();
     }
 
