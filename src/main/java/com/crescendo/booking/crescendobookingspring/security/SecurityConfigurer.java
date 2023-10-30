@@ -51,7 +51,9 @@ public class SecurityConfigurer  {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.POST, "/rest/user/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/rest/user").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/rest/event").hasAuthority("MANAGER")
+                        // .requestMatchers(HttpMethod.PUT, "/rest/event").hasAuthority("MANAGER")
+                        // .requestMatchers(HttpMethod.PUT, "/rest/user").hasAuthority("MANAGER")
                         .anyRequest().authenticated())
                 .addFilterAfter(new JwtInterceptingFilter(), UsernamePasswordAuthenticationFilter.class);
 

@@ -2,37 +2,25 @@ package com.crescendo.booking.crescendobookingspring.controllers;
 
 import com.crescendo.booking.crescendobookingspring.data.dtos.Event;
 import com.crescendo.booking.crescendobookingspring.data.repositories.EventRepository;
+import com.crescendo.booking.crescendobookingspring.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalTime;
-import java.util.Date;
-
-import static com.crescendo.booking.crescendobookingspring.format.DateHelper.convertTimestampToLocalTime;
-
 @RestController
 @RequestMapping("/rest/event")
 public class EventRestController {
 
     @Autowired
-    EventRepository eventRepository;
+    EventService eventService;
 
     @PostMapping
     public boolean createEvent(@RequestBody Event dto) {
         if (!validateFields(dto))
             return false;
-        LocalTime startTime = convertTimestampToLocalTime(dto.getStartTime());
-        LocalTime endTime = convertTimestampToLocalTime(dto.getEndTime());
-        Date date = new Date(Long.parseLong(dto.getDate()));
-        // Maybe refactor not at this level
-        com.crescendo.booking.crescendobookingspring.data.entities.Event event
-                = new com.crescendo.booking.crescendobookingspring.data.entities.Event(dto.getName(), startTime,
-                endTime, date, dto.getCapacity(), dto.getMinAge(), dto.getMaxAge(), dto.getVenue(), dto.getDescription());
-        eventRepository.save(event);
-        return true;
+        return eventService.createEvent(dto);
     }
 
     private boolean validateFields(Event dto) {

@@ -33,7 +33,7 @@ public class EventRestControllerIntegrationTest {
 
     @Test
     @DisplayName("Creates a new event")
-    @WithMockUser(username = "r.daima@aui.ma")
+    @WithMockUser(username = "r.daima@aui.ma", authorities = {"MANAGER"})
     public void createEventTest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String token = JwtHelper.generateToken(authentication);
@@ -62,7 +62,7 @@ public class EventRestControllerIntegrationTest {
 
     @Test
     @DisplayName("Validate the fields when creating a new event.")
-    @WithMockUser(username = "r.daima@aui.ma")
+    @WithMockUser(username = "r.daima@aui.ma", authorities = {"MANAGER"})
     public void createEventInvalidFieldsTest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String token = JwtHelper.generateToken(authentication);
