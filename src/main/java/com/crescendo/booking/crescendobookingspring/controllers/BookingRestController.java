@@ -17,6 +17,7 @@ public class BookingRestController {
 
     @PostMapping
     public boolean createBooking(@RequestParam String event, @RequestParam String plan) {
+        System.out.println("comment");
         if (!validateFields(event, plan))
             return false;
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

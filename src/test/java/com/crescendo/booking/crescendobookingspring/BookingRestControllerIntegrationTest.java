@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -23,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("Integration testing for Booking Rest Controller")
-@Sql(scripts = {"/user.sql"})
+@Sql(scripts = {"/user.sql", "/event.sql", "/plan.sql"})
 public class BookingRestControllerIntegrationTest {
 
     @LocalServerPort
@@ -33,9 +30,6 @@ public class BookingRestControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private BookingRepository bookingRepository;
 
     @Test
     @DisplayName("Creates a new booking for a user.")
@@ -48,8 +42,10 @@ public class BookingRestControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + token);
 
-        ResponseEntity<Boolean> response = this.restTemplate.postForEntity(
-                baseUrl + port + "/rest/booking?event=1&plan=1", headers, Boolean.class);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        ResponseEntity<Boolean> response = this.restTemplate.exchange(
+                baseUrl + port + "/rest/booking?event=1&plan=1", HttpMethod.POST, request, Boolean.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isTrue();
