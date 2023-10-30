@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 //@Setter
 public class Profile extends BaseEntity {
 
@@ -33,9 +34,4 @@ public class Profile extends BaseEntity {
 
     @NotNull
     protected Boolean isSubbed;
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
 }

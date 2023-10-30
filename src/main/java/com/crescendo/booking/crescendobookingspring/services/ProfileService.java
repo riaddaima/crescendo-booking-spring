@@ -24,11 +24,10 @@ public class ProfileService {
     public void updateOwnProfile(String email, String firstName, String lastName, String phoneNumber, Boolean isSubbed) {
         User user = userRepository.findByEmail(email);
         Profile profile = user.getProfile();
-//        System.out.println(user.getBookings().toString());
         profile.setFirstName(firstName);
-//        profile.setLastName(lastName);
-//        profile.setPhoneNumber(phoneNumber);
-//        profile.setIsSubbed(isSubbed);
+        profile.setLastName(lastName);
+        profile.setPhoneNumber(phoneNumber);
+        profile.setIsSubbed(isSubbed);
         profileRepository.save(profile);
     }
 }
