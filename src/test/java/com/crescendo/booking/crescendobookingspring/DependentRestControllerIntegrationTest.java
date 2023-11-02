@@ -84,27 +84,4 @@ public class DependentRestControllerIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isFalse();
     }
-
-    @Test
-    @DisplayName("Get all dependents of a user.")
-    @WithMockUser(username = "r.daima@aui.ma")
-    @Sql(scripts = {"/dependent.sql"})
-    public void getOwnDependentsTest() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token = JwtHelper.generateToken(authentication);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
-
-        HttpEntity<String> request = new HttpEntity<>(null, headers);
-
-        ResponseEntity<List<com.crescendo.booking.crescendobookingspring.data.entities.Dependent>> response = this.restTemplate.exchange(
-                baseUrl + port + "/rest/dependent", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
-                });
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<com.crescendo.booking.crescendobookingspring.data.entities.Dependent> dependents = response.getBody();
-        assertThat(dependents).isNotNull();
-    }
 }

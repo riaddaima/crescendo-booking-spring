@@ -19,6 +19,7 @@ import java.util.List;
         @UniqueConstraint(columnNames = "email")
 })
 @Getter
+@Setter
 public class User {
 
     @Id

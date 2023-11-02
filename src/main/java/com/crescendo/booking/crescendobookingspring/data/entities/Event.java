@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Event extends BaseEntity {
 
     @NotNull

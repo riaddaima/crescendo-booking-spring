@@ -1,6 +1,7 @@
 DELETE FROM attend;
 DELETE FROM booking;
 DELETE FROM dependent;
+DELETE FROM event_instructors;
 DELETE FROM event;
 DELETE FROM plan;
 DELETE FROM profile;

@@ -22,6 +22,18 @@ public class PlanRestController {
         return planService.createPlan(dto);
     }
 
+    @DeleteMapping
+    public boolean deletePlan(@RequestParam Long id) {
+        return planService.deletePlan(id);
+    }
+
+    @PutMapping
+    public boolean updatePlan(@RequestParam Long id, @RequestBody Plan dto) {
+        if (!validateFields(dto))
+            return false;
+        return planService.updatePlan(id, dto);
+    }
+
     @GetMapping
     public List<com.crescendo.booking.crescendobookingspring.data.entities.Plan> getAllPlans() {
         return planService.getAllPlans();

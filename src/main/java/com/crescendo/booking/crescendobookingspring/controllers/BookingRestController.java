@@ -37,4 +37,9 @@ public class BookingRestController {
     private boolean validateFields(Long event, Long plan) {
         return (event != null && plan != null);
     }
+
+    @DeleteMapping
+    public boolean cancelBooking(@RequestParam Long id) {
+        return bookingService.cancelBooking(id);
+    }
 }

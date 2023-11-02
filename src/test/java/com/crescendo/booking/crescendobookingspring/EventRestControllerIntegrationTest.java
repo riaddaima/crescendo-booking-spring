@@ -80,7 +80,7 @@ public class EventRestControllerIntegrationTest {
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
         ResponseEntity<List<Event>> response = this.restTemplate.exchange(
-                baseUrl + port + "/rest/event", HttpMethod.GET, request, new ParameterizedTypeReference<List<Event>>() {});
+                baseUrl + port + "/rest/event/all", HttpMethod.GET, request, new ParameterizedTypeReference<List<Event>>() {});
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Event> events = response.getBody();

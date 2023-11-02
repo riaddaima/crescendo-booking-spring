@@ -30,6 +30,18 @@ public class DependentRestController {
         return dependentService.getDependents(email);
     }
 
+    @DeleteMapping
+    public boolean deleteDependent(@RequestParam Long id) {
+        return dependentService.deleteDependent(id);
+    }
+
+    @PutMapping
+    public boolean updateDependent(@RequestParam Long id, @RequestBody Dependent dto) {
+        if (!validateFields(dto))
+            return false;
+        return dependentService.updateDependent(id, dto);
+    }
+
     private boolean validateFields(Dependent dto) {
         return (dto.getFirstName() != null && dto.getLastName() != null && dto.getDob() != null &&
                 dto.getGender() != null);

@@ -42,4 +42,14 @@ public class AttendService {
     public List<Attend> getAllAttendances() {
         return attendRepository.findAll();
     }
+
+    public boolean updateAttendance(Long id, boolean absent) {
+        Optional<Attend> foundAttend = attendRepository.findById(id);
+        if (foundAttend.isPresent()) {
+            foundAttend.get().setAbsent(absent);
+            attendRepository.save(foundAttend.get());
+            return true;
+        }
+        return false;
+    }
 }

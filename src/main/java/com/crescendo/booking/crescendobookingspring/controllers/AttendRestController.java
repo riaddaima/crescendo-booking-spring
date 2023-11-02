@@ -26,6 +26,11 @@ public class AttendRestController {
         return attendService.getAllAttendances();
     }
 
+    @PatchMapping
+    public boolean updateAttendance(@RequestParam Long id, @RequestBody boolean absent) {
+        return attendService.updateAttendance(id, absent);
+    }
+
     private boolean validateFields(List<Long> dependents, Long booking) {
         return (dependents != null && booking != null);
     }

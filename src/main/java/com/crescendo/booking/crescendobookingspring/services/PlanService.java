@@ -22,6 +22,26 @@ public class PlanService {
         return true;
     }
 
+    public boolean deletePlan(Long id) {
+        Plan plan = planRepository.findById(id).orElse(null);
+        if (plan == null)
+            return false;
+        planRepository.delete(plan);
+        return true;
+    }
+
+    public boolean updatePlan(Long id, com.crescendo.booking.crescendobookingspring.data.dtos.Plan dto) {
+        Plan plan = planRepository.findById(id).orElse(null);
+        if (plan == null)
+            return false;
+        plan.setTitle(dto.getTitle());
+        plan.setType(dto.getType());
+        plan.setPrice(dto.getPrice());
+        plan.setNumKids(dto.getNumKids());
+        planRepository.save(plan);
+        return true;
+    }
+
     public List<Plan> getAllPlans() {
         return planRepository.findAll();
     }

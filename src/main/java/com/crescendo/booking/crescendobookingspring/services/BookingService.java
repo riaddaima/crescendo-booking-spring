@@ -50,4 +50,12 @@ public class BookingService {
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
+
+    public boolean cancelBooking(long id) {
+        Booking booking = bookingRepository.findById(id).orElse(null);
+        if (booking == null)
+            return false;
+        bookingRepository.delete(booking);
+        return true;
+    }
 }

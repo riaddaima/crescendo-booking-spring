@@ -29,4 +29,24 @@ public class DependentService {
         User user = userRepository.findByEmail(email);
         return user.getDependents();
     }
+
+    public boolean deleteDependent(long id) {
+        Dependent dependent = dependentRepository.findById(id).orElse(null);
+        if (dependent == null)
+            return false;
+        dependentRepository.delete(dependent);
+        return true;
+    }
+
+    public boolean updateDependent(long id, com.crescendo.booking.crescendobookingspring.data.dtos.Dependent dto) {
+        Dependent dependent = dependentRepository.findById(id).orElse(null);
+        if (dependent == null)
+            return false;
+        dependent.setFirstName(dto.getFirstName());
+        dependent.setLastName(dto.getLastName());
+        dependent.setDob(dto.getDob());
+        dependent.setGender(dto.getGender());
+        dependentRepository.save(dependent);
+        return true;
+    }
 }

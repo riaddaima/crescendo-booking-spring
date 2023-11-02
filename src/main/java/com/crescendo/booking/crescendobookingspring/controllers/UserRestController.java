@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +35,25 @@ public class UserRestController {
     public com.crescendo.booking.crescendobookingspring.data.entities.User getUser() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userService.getUser(email);
+    }
+
+    @GetMapping("/all")
+    public List<com.crescendo.booking.crescendobookingspring.data.entities.User> getUsers() {
+        return userService.getUsers();
+    }
+
+    @DeleteMapping
+    public boolean deleteUser() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.deleteUser(email);
+    }
+
+    @PatchMapping
+    public boolean changePassword(@RequestBody User dto) {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!validateFields(dto))
+            return false;
+        return userService.changePassword(email, dto.getPassword());
     }
 
     @PostMapping
