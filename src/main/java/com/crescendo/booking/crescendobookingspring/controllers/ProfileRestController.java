@@ -1,11 +1,8 @@
 package com.crescendo.booking.crescendobookingspring.controllers;
 
 import com.crescendo.booking.crescendobookingspring.data.dtos.Profile;
-import com.crescendo.booking.crescendobookingspring.data.entities.User;
-import com.crescendo.booking.crescendobookingspring.data.repositories.UserRepository;
 import com.crescendo.booking.crescendobookingspring.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +19,12 @@ public class ProfileRestController {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         profileService.createOwnProfile(email, dto.getFirstName(), dto.getLastName(), dto.getPhoneNumber(), dto.getIsSubbed());
         return true;
+    }
+
+    @GetMapping
+    public com.crescendo.booking.crescendobookingspring.data.entities.Profile getProfile() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return profileService.getOwnProfile(email);
     }
 
     @PatchMapping

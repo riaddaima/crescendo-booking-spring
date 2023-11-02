@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DependentService {
@@ -22,5 +23,10 @@ public class DependentService {
         User user = userRepository.findByEmail(email);
         Dependent dependent = new Dependent(user, firstName, lastName, dob, gender);
         dependentRepository.save(dependent);
+    }
+
+    public List<Dependent> getDependents(String email) {
+        User user = userRepository.findByEmail(email);
+        return user.getDependents();
     }
 }

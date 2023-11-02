@@ -18,4 +18,8 @@ public class UserService {
         userRepository.save(new User(email, password, Role.CUSTOMER));
         return true;
     }
+
+    public User getUser(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

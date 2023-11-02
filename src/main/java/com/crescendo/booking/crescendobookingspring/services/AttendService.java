@@ -38,4 +38,8 @@ public class AttendService {
         }
         return false;
     }
+
+    public List<Attend> getAllAttendances() {
+        return attendRepository.findAll();
+    }
 }

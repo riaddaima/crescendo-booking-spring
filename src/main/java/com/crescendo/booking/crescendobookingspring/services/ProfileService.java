@@ -21,6 +21,11 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
+    public Profile getOwnProfile(String email) {
+        User user = userRepository.findByEmail(email);
+        return user.getProfile();
+    }
+
     public void updateOwnProfile(String email, String firstName, String lastName, String phoneNumber, Boolean isSubbed) {
         User user = userRepository.findByEmail(email);
         Profile profile = user.getProfile();

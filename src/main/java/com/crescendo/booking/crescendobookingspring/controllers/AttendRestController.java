@@ -1,5 +1,6 @@
 package com.crescendo.booking.crescendobookingspring.controllers;
 
+import com.crescendo.booking.crescendobookingspring.data.entities.Attend;
 import com.crescendo.booking.crescendobookingspring.services.AttendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,11 @@ public class AttendRestController {
         if (!validateFields(dependents, booking))
             return false;
         return attendService.addAttendances(dependents, booking);
+    }
+
+    @GetMapping
+    public List<Attend> getAttendances() {
+        return attendService.getAllAttendances();
     }
 
     private boolean validateFields(List<Long> dependents, Long booking) {

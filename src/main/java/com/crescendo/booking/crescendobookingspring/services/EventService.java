@@ -37,4 +37,8 @@ public class EventService {
         eventRepository.save(event);
         return true;
     }
+
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
+    }
 }

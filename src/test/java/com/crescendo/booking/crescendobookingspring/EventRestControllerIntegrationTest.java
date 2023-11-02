@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,28 @@ public class EventRestControllerIntegrationTest {
         com.crescendo.booking.crescendobookingspring.data.entities.Event createdEvent =
                 eventRepository.findByName(event.getName());
         assertThat(createdEvent.getName()).isEqualTo(event.getName());
-//        assertThat(createdEvent.getInstructors().get(0).getEmail()).isEqualTo("r.daima@aui.ma");
+    }
+
+    @Test
+    @DisplayName("Retrieve the list of events")
+    @WithMockUser(username = "r.daima@aui.ma", authorities = {"MANAGER"})
+    @Sql(scripts = {"/user.sql", "/event.sql"})
+    public void getEventsTest() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = JwtHelper.generateToken(authentication);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + token);
+
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        ResponseEntity<List<Event>> response = this.restTemplate.exchange(
+                baseUrl + port + "/rest/event", HttpMethod.GET, request, new ParameterizedTypeReference<List<Event>>() {});
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<Event> events = response.getBody();
+        assertThat(events).isNotNull();
     }
 
     @Test

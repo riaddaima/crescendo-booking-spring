@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +51,28 @@ public class UserRestControllerIntegrationTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Retrieve the user information.")
+    @WithMockUser(username = "r.daima@aui.ma")
+    public void getUserTest() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = JwtHelper.generateToken(authentication);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + token);
+
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        ResponseEntity<User> response = this.restTemplate.exchange(baseUrl + port + "/rest/user", HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+        });
+
+        User user = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assert user != null;
+        assertThat(user.getEmail()).isEqualTo("r.daima@aui.ma");
     }
 
     @Test

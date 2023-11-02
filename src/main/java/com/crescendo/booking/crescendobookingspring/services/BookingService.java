@@ -11,6 +11,7 @@ import com.crescendo.booking.crescendobookingspring.data.repositories.UserReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +40,14 @@ public class BookingService {
             return true;
         }
         return false;
+    }
+
+    public List<Booking> getBookings(String email) {
+        User user = userRepository.findByEmail(email);
+        return user.getBookings();
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
     }
 }

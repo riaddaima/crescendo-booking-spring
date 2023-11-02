@@ -2,30 +2,29 @@ package com.crescendo.booking.crescendobookingspring.controllers;
 
 import com.crescendo.booking.crescendobookingspring.data.dtos.Plan;
 import com.crescendo.booking.crescendobookingspring.data.repositories.PlanRepository;
+import com.crescendo.booking.crescendobookingspring.services.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/plan")
 public class PlanRestController {
 
     @Autowired
-    PlanRepository planRepository;
+    PlanService planService;
 
     @PostMapping
     public boolean createPlan(@RequestBody Plan dto) {
         if (!validateFields(dto))
             return false;
-        // Maybe refactor not at this level
-        com.crescendo.booking.crescendobookingspring.data.entities.Plan plan =
-                new com.crescendo.booking.crescendobookingspring.data.entities.Plan(
-                        dto.getTitle(), dto.getType(),dto.getPrice(), dto.getNumKids()
-                );
-        planRepository.save(plan);
-        return true;
+        return planService.createPlan(dto);
+    }
+
+    @GetMapping
+    public List<com.crescendo.booking.crescendobookingspring.data.entities.Plan> getAllPlans() {
+        return planService.getAllPlans();
     }
 
     private boolean validateFields(Plan dto) {

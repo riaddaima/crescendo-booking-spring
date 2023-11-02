@@ -4,10 +4,9 @@ import com.crescendo.booking.crescendobookingspring.data.dtos.Event;
 import com.crescendo.booking.crescendobookingspring.data.repositories.EventRepository;
 import com.crescendo.booking.crescendobookingspring.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/event")
@@ -21,6 +20,11 @@ public class EventRestController {
         if (!validateFields(dto))
             return false;
         return eventService.createEvent(dto);
+    }
+
+    @GetMapping
+    public List<com.crescendo.booking.crescendobookingspring.data.entities.Event> getAllEvents() {
+        return eventService.getAllEvents();
     }
 
     private boolean validateFields(Event dto) {

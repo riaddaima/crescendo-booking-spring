@@ -4,10 +4,9 @@ import com.crescendo.booking.crescendobookingspring.data.dtos.Dependent;
 import com.crescendo.booking.crescendobookingspring.services.DependentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/dependent")
@@ -23,6 +22,12 @@ public class DependentRestController {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dependentService.addOwnDependent(email, dto.getFirstName(), dto.getLastName(), dto.getDob(), dto.getGender());
         return true;
+    }
+
+    @GetMapping
+    public List<com.crescendo.booking.crescendobookingspring.data.entities.Dependent> getDependents() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return dependentService.getDependents(email);
     }
 
     private boolean validateFields(Dependent dto) {

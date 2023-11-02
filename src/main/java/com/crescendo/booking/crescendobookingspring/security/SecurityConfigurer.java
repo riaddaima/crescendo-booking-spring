@@ -52,6 +52,7 @@ public class SecurityConfigurer  {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.POST, "/rest/user/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/rest/event").hasAuthority("MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/rest/booking/all").hasAuthority("MANAGER")
                         // .requestMatchers(HttpMethod.PUT, "/rest/event").hasAuthority("MANAGER")
                         // .requestMatchers(HttpMethod.PUT, "/rest/user").hasAuthority("MANAGER")
                         .anyRequest().authenticated())
