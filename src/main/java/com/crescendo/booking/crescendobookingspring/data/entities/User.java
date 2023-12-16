@@ -6,10 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import com.crescendo.booking.crescendobookingspring.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -23,22 +20,11 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
     protected long id;
-
-    @Column(name="created_at", updatable = false)
-    @CreatedDate
-    private long createdDate;
-
-    @Column(name="modified_at")
-    @LastModifiedDate
-    private long modifiedDate;
 
     @NotNull
     @Email
     protected String email;
-
-    protected String password;
 
     @NotNull
     protected String role;
@@ -57,9 +43,9 @@ public class User {
 
     protected User () {}
 
-    public User(String email, String password, Role role) {
+    public User(long id, String email, String role) {
+        this.id = id;
         this.email = email;
-        this.password = new BCryptPasswordEncoder().encode(password);
-        this.role = role.getValue();
+        this.role = role;
     }
 }
